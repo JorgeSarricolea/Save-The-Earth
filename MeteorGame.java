@@ -91,21 +91,24 @@ public class MeteorGame extends JFrame {
     }
 
     private void checkCollision(int mouseX, int mouseY) {
-        List<JLabel> meteorsToRemove = new ArrayList<>();
+      List<JLabel> meteorsToRemove = new ArrayList<>();
 
-        for (JLabel meteorLabel : meteorList) {
-            Rectangle meteorBounds = meteorLabel.getBounds();
-            if (meteorBounds.contains(mouseX, mouseY)) {
-                destroyedCount++;
-                meteorsToRemove.add(meteorLabel);
-                updateCountLabel(); // Update the JLabel of the content
-            }
-        }
+      for (JLabel meteorLabel : meteorList) {
+          Rectangle meteorBounds = meteorLabel.getBounds();
+          if (meteorBounds.contains(mouseX, mouseY)) {
+              destroyedCount++;
+              meteorsToRemove.add(meteorLabel);
+          }
+      }
 
-        for (JLabel meteorLabel : meteorsToRemove) {
-            remove(meteorLabel);
-            meteorList.remove(meteorLabel);
-        }
+      for (JLabel meteorLabel : meteorsToRemove) {
+          layeredPane.remove(meteorLabel);  // Remove the meteor directly from the JLayeredPane
+          meteorList.remove(meteorLabel);
+      }
+
+      updateCountLabel(); // Update the tag after removing the meteorites
+      layeredPane.revalidate(); // Ensures the interface is updated correctly
+      layeredPane.repaint(); // Repaint the interface to reflect the changes
     }
 
     private void updateCountLabel() {
