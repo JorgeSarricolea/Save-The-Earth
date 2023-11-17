@@ -8,7 +8,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
-public class MeteorGame extends JFrame {
+public class SaveTheEarth extends JFrame {
     private JLabel earthLabel;
     private List<JLabel> meteorList;
     private int destroyedCount;
@@ -16,8 +16,8 @@ public class MeteorGame extends JFrame {
     private JLabel countLabel;
     private JLayeredPane layeredPane;
 
-    public MeteorGame() {
-        setTitle("Meteor Game");
+    public SaveTheEarth() {
+        setTitle("Save the Earth!");
         setSize(879, 485);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
@@ -44,7 +44,7 @@ public class MeteorGame extends JFrame {
         });
 
         // Add the image of the earth to the background
-        earthLabel = new JLabel(new ImageIcon("tierra.jpg"));
+        earthLabel = new JLabel(new ImageIcon("earth.jpg"));
         earthLabel.setBounds(0, 0, 879, 485);
         layeredPane.add(earthLabel, JLayeredPane.DEFAULT_LAYER);
 
@@ -63,7 +63,7 @@ public class MeteorGame extends JFrame {
       int x = rand.nextInt(800);
       int[] y = {0}; // Array of size 1 to store the value of y
 
-      JLabel meteorLabel = new JLabel(new ImageIcon("meteor_100x100.png"));
+      JLabel meteorLabel = new JLabel(new ImageIcon("assets/meteor.png"));
       meteorLabel.setBounds(x, y[0], 100, 100);
       layeredPane.add(meteorLabel, JLayeredPane.PALETTE_LAYER);
       meteorList.add(meteorLabel);
@@ -122,7 +122,7 @@ public class MeteorGame extends JFrame {
         SwingUtilities.invokeLater(new Runnable() {
             @Override
             public void run() {
-                new MeteorGame().setVisible(true);
+                new SaveTheEarth().setVisible(true);
             }
         });
     }
