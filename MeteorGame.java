@@ -12,6 +12,8 @@ public class MeteorGame extends JFrame {
     private JLabel earthLabel;
     private List<JLabel> meteorList;
     private int destroyedCount;
+    private int crashedCount;
+    private JLabel countLabel;
     private JLayeredPane layeredPane;
 
     public MeteorGame() {
@@ -24,6 +26,7 @@ public class MeteorGame extends JFrame {
 
         meteorList = new ArrayList<>();
         destroyedCount = 0;
+        crashedCount = 0; // Inicializa el nuevo contador
 
         Timer timer = new Timer(1000, new ActionListener() {
             @Override
@@ -47,6 +50,12 @@ public class MeteorGame extends JFrame {
 
         // Establece el orden de superposición de la imagen de la Tierra
         layeredPane.setLayer(earthLabel, 0);
+
+        // Crea y agrega el JLabel para mostrar el conteo en la esquina superior izquierda
+        countLabel = new JLabel("Destroyed: 0 | (Crashed: 0");
+        countLabel.setForeground(Color.WHITE);
+        countLabel.setBounds(10, 10, 300, 20);
+        layeredPane.add(countLabel, JLayeredPane.PALETTE_LAYER);
     }
 
     private void createMeteor() {
@@ -66,14 +75,19 @@ public class MeteorGame extends JFrame {
                 meteorLabel.setBounds(x, y[0], 100, 100);
 
                 if (y[0] > 300) {
+                    // Verifica si el meteorito llega a la posición 350 en y
+                    if (y[0] >= 300) {
+                      crashedCount++;
+                    }
+
                     remove(meteorLabel);
                     meteorList.remove(meteorLabel);
                     ((Timer) e.getSource()).stop();
+                    updateCountLabel(); // Actualiza el JLabel del conteo
                 }
             }
         });
         moveTimer.start();
-        System.out.println("Meteorito en posición: (" + x + ", " + y[0] + ")");
     }
 
     private void checkCollision(int mouseX, int mouseY) {
@@ -84,7 +98,7 @@ public class MeteorGame extends JFrame {
             if (meteorBounds.contains(mouseX, mouseY)) {
                 destroyedCount++;
                 meteorsToRemove.add(meteorLabel);
-                updateDestroyedCount();
+                updateCountLabel(); // Actualiza el JLabel del conteo
             }
         }
 
@@ -94,8 +108,8 @@ public class MeteorGame extends JFrame {
         }
     }
 
-    private void updateDestroyedCount() {
-        setTitle("Meteor Game - Destroyed: " + destroyedCount);
+    private void updateCountLabel() {
+        countLabel.setText("Destroyed: " + destroyedCount + " | Crashed: " + crashedCount + "");
     }
 
     public static void main(String[] args) {
