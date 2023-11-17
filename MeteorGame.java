@@ -28,7 +28,7 @@ public class MeteorGame extends JFrame {
         destroyedCount = 0;
         crashedCount = 0;
 
-        Timer timer = new Timer(2000, new ActionListener() {
+        Timer timer = new Timer(1000, new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 createMeteor();
@@ -59,35 +59,38 @@ public class MeteorGame extends JFrame {
     }
 
     private void createMeteor() {
-        Random rand = new Random();
-        int x = rand.nextInt(800);
-        int[] y = {0}; // Array of size 1 to store the value of y
+      Random rand = new Random();
+      int x = rand.nextInt(800);
+      int[] y = {0}; // Array of size 1 to store the value of y
 
-        JLabel meteorLabel = new JLabel(new ImageIcon("meteor_100x100.png"));
-        meteorLabel.setBounds(x, y[0], 100, 100);
-        layeredPane.add(meteorLabel, JLayeredPane.PALETTE_LAYER);
-        meteorList.add(meteorLabel);
+      JLabel meteorLabel = new JLabel(new ImageIcon("meteor_100x100.png"));
+      meteorLabel.setBounds(x, y[0], 100, 100);
+      layeredPane.add(meteorLabel, JLayeredPane.PALETTE_LAYER);
+      meteorList.add(meteorLabel);
 
-        Timer moveTimer = new Timer(50, new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                y[0] += 5;
-                meteorLabel.setBounds(x, y[0], 100, 100);
+      Timer moveTimer = new Timer(50, new ActionListener() {
+          @Override
+          public void actionPerformed(ActionEvent e) {
+              y[0] += 5;
+              meteorLabel.setBounds(x, y[0], 100, 100);
 
-                if (y[0] > 300) {
-                    // Check if the meteorite reaches position 300 in y
-                    if (y[0] >= 300) {
-                      crashedCount++;
-                    }
+              if (y[0] > 300) {
+                  // Check if the meteorite reaches position 300 in y
+                  if (y[0] >= 300) {
+                      // Check if the meteorite is still in the list before incrementing crashedCount
+                      if (meteorList.contains(meteorLabel)) {
+                          crashedCount++;
+                      }
+                  }
 
-                    remove(meteorLabel);
-                    meteorList.remove(meteorLabel);
-                    ((Timer) e.getSource()).stop();
-                    updateCountLabel(); // Update the JLabel of the content
-                }
-            }
-        });
-        moveTimer.start();
+                  remove(meteorLabel);
+                  meteorList.remove(meteorLabel);
+                  ((Timer) e.getSource()).stop();
+                  updateCountLabel(); // Update the JLabel of the content
+              }
+          }
+      });
+      moveTimer.start();
     }
 
     private void checkCollision(int mouseX, int mouseY) {
