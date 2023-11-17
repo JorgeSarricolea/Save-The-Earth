@@ -26,9 +26,9 @@ public class MeteorGame extends JFrame {
 
         meteorList = new ArrayList<>();
         destroyedCount = 0;
-        crashedCount = 0; // Inicializa el nuevo contador
+        crashedCount = 0;
 
-        Timer timer = new Timer(1000, new ActionListener() {
+        Timer timer = new Timer(2000, new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 createMeteor();
@@ -43,15 +43,15 @@ public class MeteorGame extends JFrame {
             }
         });
 
-        // Agrega la imagen de la tierra al fondo
+        // Add the image of the earth to the background
         earthLabel = new JLabel(new ImageIcon("tierra.jpg"));
         earthLabel.setBounds(0, 0, 879, 485);
         layeredPane.add(earthLabel, JLayeredPane.DEFAULT_LAYER);
 
-        // Establece el orden de superposición de la imagen de la Tierra
+        // Sets the Earth image overlay order
         layeredPane.setLayer(earthLabel, 0);
 
-        // Crea y agrega el JLabel para mostrar el conteo en la esquina superior izquierda
+        // Create and add the JLabel to display the count in the top left corner
         countLabel = new JLabel("Destroyed: 0 | (Crashed: 0");
         countLabel.setForeground(Color.WHITE);
         countLabel.setBounds(10, 10, 300, 20);
@@ -61,7 +61,7 @@ public class MeteorGame extends JFrame {
     private void createMeteor() {
         Random rand = new Random();
         int x = rand.nextInt(800);
-        int[] y = {0}; // Array de un tamaño 1 para almacenar el valor de y
+        int[] y = {0}; // Array of size 1 to store the value of y
 
         JLabel meteorLabel = new JLabel(new ImageIcon("meteor_100x100.png"));
         meteorLabel.setBounds(x, y[0], 100, 100);
@@ -75,7 +75,7 @@ public class MeteorGame extends JFrame {
                 meteorLabel.setBounds(x, y[0], 100, 100);
 
                 if (y[0] > 300) {
-                    // Verifica si el meteorito llega a la posición 350 en y
+                    // Check if the meteorite reaches position 300 in y
                     if (y[0] >= 300) {
                       crashedCount++;
                     }
@@ -83,7 +83,7 @@ public class MeteorGame extends JFrame {
                     remove(meteorLabel);
                     meteorList.remove(meteorLabel);
                     ((Timer) e.getSource()).stop();
-                    updateCountLabel(); // Actualiza el JLabel del conteo
+                    updateCountLabel(); // Update the JLabel of the content
                 }
             }
         });
@@ -98,7 +98,7 @@ public class MeteorGame extends JFrame {
             if (meteorBounds.contains(mouseX, mouseY)) {
                 destroyedCount++;
                 meteorsToRemove.add(meteorLabel);
-                updateCountLabel(); // Actualiza el JLabel del conteo
+                updateCountLabel(); // Update the JLabel of the content
             }
         }
 
