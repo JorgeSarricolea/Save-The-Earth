@@ -44,7 +44,7 @@ public class SaveTheEarth extends JFrame {
         });
 
         // Add the image of the earth to the background
-        earthLabel = new JLabel(new ImageIcon("earth.jpg"));
+        earthLabel = new JLabel(new ImageIcon("assets/earth.jpg"));
         earthLabel.setBounds(0, 0, 879, 485);
         layeredPane.add(earthLabel, JLayeredPane.DEFAULT_LAYER);
 
