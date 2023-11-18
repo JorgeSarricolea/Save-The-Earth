@@ -1,33 +1,46 @@
 # Save-The-Earth
 
-![Save The Earth](assets/earth.jpg)
-
 The game "Save The Earth," where the player must protect the Earth from incoming meteorites.
 
 ## Table of Contents
 
 1. [Introduction](#introduction)
 2. [How to Play](#how-to-play)
-3. [Features](#features)
-4. [Contribution](#contribution)
+3. [Getting Started](#getting-started)
+4. [Features](#features)
+5. [Contribution](#contribution)
 
 ## Introduction
 
-A brief overview of the game and its purpose. You may include a screenshot or an image of the game in action.
+"Save The Earth" is an engaging and interactive game where players take on the crucial role of Earth's defender against a barrage of incoming meteorites. With a simple yet compelling objective — protect the Earth at all costs — players will find themselves immersed in a dynamic gaming experience that challenges their reflexes and decision-making skills.
 
 ## How to Play
 
-### Requirements
+You must click on the meteorites before they collide with Earth; if three meteorites collide, the game will be over.
 
-List of prerequisites needed to play the game, such as the required Java version.
+## Getting Started
 
-### Installation Instructions
+To get started with "Save The Earth," follow these simple steps:
 
-Detailed instructions on how to install and run the game.
+### Prerequisites
 
-### Controls
+**Java:** Ensure that you have Java installed on your system. You can download it here.
 
-Explain the game controls, for example, how to click to destroy meteorites.
+### Installation
+
+1. Clone the repository to your local machine:
+```
+git clone https://github.com/tuusuario/SaveTheEarth.git
+```
+
+2. Navigate to the project directory:
+```
+cd SaveTheEarth
+```
+3. Compile and run the game using the following command:
+```
+javac SaveTheEarth.java && java SaveTheEarth
+```
 
 ## Features
 
