@@ -9,6 +9,7 @@ The game "Save The Earth," where the player must protect the Earth from incoming
 3. [Getting Started](#getting-started)
 4. [Features](#features)
 5. [Contribution](#contribution)
+6. [Copyright](#copyright)
 
 ## Introduction
 
@@ -51,4 +52,8 @@ javac SaveTheEarth.java && java SaveTheEarth
 
 ## Contribution
 
-Details on how to contribute to the project, report issues, and submit pull requests. You may mention if there are specific issues that need attention or features that can be added.
+While contributions to this project are welcome. If you would like to contribute, feel free to fork this repository and submit a pull request.
+
+## Copyright
+
+This project was created by [Jorge Sarricolea](https://jorgesarricolea.com). if you have any specific code questions or would like to chat about programming, feel free to contact me on [WhatsApp](https://wa.me/529381095593).
