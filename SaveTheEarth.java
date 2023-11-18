@@ -52,70 +52,70 @@ public class SaveTheEarth extends JFrame {
         layeredPane.setLayer(earthLabel, 0);
 
         // Create and add the JLabel to display the count in the top left corner
-        countLabel = new JLabel("Destroyed: 0 | (Crashed: 0");
+        countLabel = new JLabel("Destroyed: 0 | (Crashed: 0)");
         countLabel.setForeground(Color.WHITE);
         countLabel.setBounds(10, 10, 300, 20);
         layeredPane.add(countLabel, JLayeredPane.PALETTE_LAYER);
     }
 
     private void createMeteor() {
-      Random rand = new Random();
-      int x = rand.nextInt(800);
-      int[] y = {0}; // Array of size 1 to store the value of y
+        Random rand = new Random();
+        int x = rand.nextInt(800);
 
-      JLabel meteorLabel = new JLabel(new ImageIcon("assets/meteor.png"));
-      meteorLabel.setBounds(x, y[0], 100, 100);
-      layeredPane.add(meteorLabel, JLayeredPane.PALETTE_LAYER);
-      meteorList.add(meteorLabel);
+        JLabel meteorLabel = new JLabel(new ImageIcon("assets/meteor.png"));
+        meteorLabel.setBounds(x, 0, 100, 100);
+        layeredPane.add(meteorLabel, JLayeredPane.PALETTE_LAYER);
+        meteorList.add(meteorLabel);
 
-      Timer moveTimer = new Timer(50, new ActionListener() {
-          @Override
-          public void actionPerformed(ActionEvent e) {
-              y[0] += 5;
-              meteorLabel.setBounds(x, y[0], 100, 100);
+        Thread moveThread = new Thread(new Runnable() {
+            @Override
+            public void run() {
+                int y = 0;
+                while (y < 300) {
+                    try {
+                        Thread.sleep(50);
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
 
-              if (y[0] > 300) {
-                  // Check if the meteorite reaches position 300 in y
-                  if (y[0] >= 300) {
-                      // Check if the meteorite is still in the list before incrementing crashedCount
-                      if (meteorList.contains(meteorLabel)) {
-                          crashedCount++;
-                      }
-                  }
+                    y += 5;
+                    meteorLabel.setBounds(x, y, 100, 100);
+                }
 
-                  remove(meteorLabel);
-                  meteorList.remove(meteorLabel);
-                  ((Timer) e.getSource()).stop();
-                  updateCountLabel(); // Update the JLabel of the content
-              }
-          }
-      });
-      moveTimer.start();
+                if (meteorList.contains(meteorLabel)) {
+                    crashedCount++;
+                    remove(meteorLabel);
+                    meteorList.remove(meteorLabel);
+                    updateCountLabel();
+                }
+            }
+        });
+        moveThread.start();
     }
 
     private void checkCollision(int mouseX, int mouseY) {
-      List<JLabel> meteorsToRemove = new ArrayList<>();
+        List<JLabel> meteorsToRemove = new ArrayList<>();
 
-      for (JLabel meteorLabel : meteorList) {
-          Rectangle meteorBounds = meteorLabel.getBounds();
-          if (meteorBounds.contains(mouseX, mouseY)) {
-              destroyedCount++;
-              meteorsToRemove.add(meteorLabel);
-          }
-      }
+        for (JLabel meteorLabel : meteorList) {
+            Rectangle meteorBounds = meteorLabel.getBounds();
+            if (meteorBounds.contains(mouseX, mouseY)) {
+                destroyedCount++;
+                meteorsToRemove.add(meteorLabel);
+            }
+        }
 
-      for (JLabel meteorLabel : meteorsToRemove) {
-          layeredPane.remove(meteorLabel);  // Remove the meteor directly from the JLayeredPane
-          meteorList.remove(meteorLabel);
-      }
+        for (JLabel meteorLabel : meteorsToRemove) {
+            layeredPane.remove(meteorLabel);
+            meteorList.remove(meteorLabel);
+        }
 
-      updateCountLabel(); // Update the tag after removing the meteorites
-      layeredPane.revalidate(); // Ensures the interface is updated correctly
-      layeredPane.repaint(); // Repaint the interface to reflect the changes
+        updateCountLabel();
+        layeredPane.revalidate();
+        layeredPane.repaint();
     }
 
     private void updateCountLabel() {
-        countLabel.setText("Destroyed: " + destroyedCount + " | Crashed: " + crashedCount + "");
+        countLabel.setText("Destroyed: " + destroyedCount + " | Crashed: " + crashedCount);
     }
 
     public static void main(String[] args) {
