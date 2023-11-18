@@ -15,6 +15,7 @@ public class SaveTheEarth extends JFrame {
     private int crashedCount;
     private JLabel countLabel;
     private JLayeredPane layeredPane;
+    private boolean gameOver;
 
     public SaveTheEarth() {
         setTitle("Save the Earth!");
@@ -27,15 +28,20 @@ public class SaveTheEarth extends JFrame {
         meteorList = new ArrayList<>();
         destroyedCount = 0;
         crashedCount = 0;
+        gameOver = false;
 
+        // Timer to create meteors at regular intervals
         Timer timer = new Timer(1000, new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                createMeteor();
+                if (!gameOver) {
+                    createMeteor();
+                }
             }
         });
         timer.start();
 
+        // Mouse listener to check for collisions when the mouse is clicked
         addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
@@ -52,12 +58,13 @@ public class SaveTheEarth extends JFrame {
         layeredPane.setLayer(earthLabel, 0);
 
         // Create and add the JLabel to display the count in the top left corner
-        countLabel = new JLabel("Destroyed: 0 | (Crashed: 0)");
+        countLabel = new JLabel("Destroyed: 0 | Crashed: 0");
         countLabel.setForeground(Color.WHITE);
         countLabel.setBounds(10, 10, 300, 20);
         layeredPane.add(countLabel, JLayeredPane.PALETTE_LAYER);
     }
 
+    // Method to create a new meteor
     private void createMeteor() {
         Random rand = new Random();
         int x = rand.nextInt(800);
@@ -67,11 +74,12 @@ public class SaveTheEarth extends JFrame {
         layeredPane.add(meteorLabel, JLayeredPane.PALETTE_LAYER);
         meteorList.add(meteorLabel);
 
+        // Thread to move the meteor downward
         Thread moveThread = new Thread(new Runnable() {
             @Override
             public void run() {
                 int y = 0;
-                while (y < 300) {
+                while (y < 300 && !gameOver) {
                     try {
                         Thread.sleep(50);
                     } catch (InterruptedException e) {
@@ -82,17 +90,22 @@ public class SaveTheEarth extends JFrame {
                     meteorLabel.setBounds(x, y, 100, 100);
                 }
 
-                if (meteorList.contains(meteorLabel)) {
+                if (!gameOver && meteorList.contains(meteorLabel)) {
                     crashedCount++;
                     remove(meteorLabel);
                     meteorList.remove(meteorLabel);
                     updateCountLabel();
+
+                    if (crashedCount == 3) {
+                        showGameOver();
+                    }
                 }
             }
         });
         moveThread.start();
     }
 
+    // Method to check for collisions with the mouse click
     private void checkCollision(int mouseX, int mouseY) {
         List<JLabel> meteorsToRemove = new ArrayList<>();
 
@@ -114,8 +127,45 @@ public class SaveTheEarth extends JFrame {
         layeredPane.repaint();
     }
 
+    // Method to update the count label
     private void updateCountLabel() {
         countLabel.setText("Destroyed: " + destroyedCount + " | Crashed: " + crashedCount);
+    }
+
+    // Method to display the "Game Over" message and handle the user's choice
+    private void showGameOver() {
+        int choice = JOptionPane.showOptionDialog(
+                this,
+                "Game Over",
+                "Game Over",
+                JOptionPane.DEFAULT_OPTION,
+                JOptionPane.INFORMATION_MESSAGE,
+                null,
+                new Object[]{"Play Again"},
+                "Play Again");
+
+        if (choice == 0) {
+            resetGame();
+        } else {
+            // Handle other choices if needed
+        }
+    }
+
+    // Method to reset the game state
+    private void resetGame() {
+        destroyedCount = 0;
+        crashedCount = 0;
+        updateCountLabel();
+        gameOver = false;
+
+        // Eliminate all remaining meteorites
+        for (JLabel meteorLabel : meteorList) {
+            layeredPane.remove(meteorLabel);
+        }
+        meteorList.clear();
+
+        layeredPane.revalidate();
+        layeredPane.repaint();
     }
 
     public static void main(String[] args) {
