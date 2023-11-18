@@ -1,7 +1,5 @@
 # Save-The-Earth
 
-The game "Save The Earth," where the player must protect the Earth from incoming meteorites.
-
 ## Table of Contents
 
 1. [Introduction](#introduction)
