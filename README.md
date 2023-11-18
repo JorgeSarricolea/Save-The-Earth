@@ -29,16 +29,16 @@ To get started with "Save The Earth," follow these simple steps:
 
 1. Clone the repository to your local machine:
 ```
-git clone https://github.com/tuusuario/SaveTheEarth.git
+git clone https://github.com/JorgeSarricolea/Save-The-Earth.git
 ```
 
 2. Navigate to the project directory:
 ```
-cd SaveTheEarth
+cd Save-The-Earth
 ```
 3. Compile and run the game using the following command:
 ```
-javac SaveTheEarth.java && java SaveTheEarth
+javac Save-The-Earth.java && java Save-The-Earth
 ```
 
 ## Features
