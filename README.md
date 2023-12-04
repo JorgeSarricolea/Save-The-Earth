@@ -2,12 +2,16 @@
 
 ## Table of Contents
 
-1. [Introduction](#introduction)
-2. [How to Play](#how-to-play)
-3. [Getting Started](#getting-started)
-4. [Features](#features)
-5. [Contribution](#contribution)
-6. [Copyright](#copyright)
+- [Save-The-Earth](#save-the-earth)
+  - [Table of Contents](#table-of-contents)
+  - [Introduction](#introduction)
+  - [How to Play](#how-to-play)
+  - [Getting Started](#getting-started)
+    - [Prerequisites](#prerequisites)
+    - [Installation](#installation)
+  - [Features](#features)
+  - [Contribution](#contribution)
+  - [Copyright](#copyright)
 
 ## Introduction
 
@@ -28,15 +32,19 @@ To get started with "Save The Earth," follow these simple steps:
 ### Installation
 
 1. Clone the repository to your local machine:
+
 ```
-git clone https://github.com/JorgeSarricolea/Save-The-Earth.git
+git clone https://github.com/JorgeSarricolea/Save-The-Earth
 ```
 
 2. Navigate to the project directory:
+
 ```
 cd Save-The-Earth
 ```
+
 3. Compile and run the game using the following command:
+
 ```
 javac Save-The-Earth.java && java Save-The-Earth
 ```
