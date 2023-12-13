@@ -27,7 +27,8 @@ To get started with "Save The Earth," follow these simple steps:
 
 ### Prerequisites
 
-**Java:** Ensure that you have Java installed on your system.
+> [!IMPORTANT] 
+> **Java:** Ensure that you have Java installed on your system.
 
 ### Installation
 
